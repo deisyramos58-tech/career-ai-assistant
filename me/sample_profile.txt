@@ -1,0 +1,28 @@
+SAMPLE PROFESSIONAL PROFILE
+
+Alex Morgan is a fictional CRM and Marketing Operations Specialist used only
+to demonstrate this open-source Career AI Assistant template.
+
+EXPERIENCE
+
+CRM and Marketing Operations Specialist | Example Learning Company
+2024 - Present
+
+- Maintains CRM data quality and lifecycle stages.
+- Builds marketing automation workflows for lead routing and follow-up.
+- Creates reports for marketing and sales stakeholders.
+- Documents processes and collaborates with cross-functional teams.
+
+SKILLS
+
+- CRM administration
+- Marketing automation
+- Workflow design
+- Data quality
+- Reporting
+- API fundamentals
+
+CONTACT
+
+This is a fictional profile. Use the CONTACT_EMAIL environment variable when
+adapting the project for a real portfolio.

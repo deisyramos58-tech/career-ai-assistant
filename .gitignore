@@ -1,0 +1,9 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.gradio/
+*.code-workspace
+me/*
+!me/sample_profile.txt
