@@ -210,13 +210,165 @@ def chat(message, history):
     return response.output_text
 
 
-demo = gr.ChatInterface(
-    fn=chat,
-    title=f"{PROFILE_NAME} | Career AI Assistant",
-    description="Ask about this sample professional profile in English or Spanish.",
+theme = gr.themes.Soft(
+    primary_hue="indigo",
+    secondary_hue="violet",
+    neutral_hue="slate",
 )
+
+css = """
+body {
+    background: linear-gradient(145deg, #f8fafc 0%, #eef2ff 50%, #faf5ff 100%);
+}
+
+#career-ai-app {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px 18px 30px;
+}
+
+#career-hero {
+    border: 1px solid rgba(99, 102, 241, 0.16);
+    border-radius: 24px;
+    background: linear-gradient(135deg, #172554 0%, #3730a3 55%, #6d28d9 100%);
+    box-shadow: 0 18px 45px rgba(49, 46, 129, 0.18);
+    color: white;
+    margin-bottom: 16px;
+    overflow: hidden;
+    padding: 34px 38px;
+}
+
+#career-hero .eyebrow {
+    color: #c7d2fe;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+
+#career-hero h1 {
+    color: white;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.05;
+    margin: 0;
+}
+
+#career-hero .subtitle {
+    color: #e0e7ff;
+    font-size: 1.05rem;
+    margin: 12px 0 5px;
+}
+
+#career-hero .intro {
+    color: #f8fafc;
+    margin: 18px 0 0;
+    max-width: 720px;
+}
+
+#career-chat {
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+}
+
+#career-input textarea {
+    font-size: 1rem;
+}
+
+#career-footer {
+    color: #64748b;
+    font-size: 0.88rem;
+    padding: 8px 6px 0;
+    text-align: center;
+}
+
+#career-footer a {
+    color: #4f46e5;
+    font-weight: 600;
+}
+
+@media (max-width: 640px) {
+    #career-ai-app {
+        padding: 12px 8px 20px;
+    }
+
+    #career-hero {
+        border-radius: 18px;
+        padding: 26px 22px;
+    }
+}
+"""
+
+with gr.Blocks(
+    title=f"{PROFILE_NAME} | Career AI Assistant",
+    elem_id="career-ai-app",
+) as demo:
+    gr.HTML(
+        f"""
+        <section id="career-hero">
+            <p class="eyebrow">Career AI Assistant</p>
+            <h1>{PROFILE_NAME}</h1>
+            <p class="subtitle">CRM · Revenue Operations · Marketing Automation</p>
+            <p class="intro">
+                Ask about this professional profile in English or Spanish.<br>
+                Pregunta sobre este perfil profesional en inglés o español.
+            </p>
+        </section>
+        """
+    )
+
+    gr.ChatInterface(
+        fn=chat,
+        chatbot=gr.Chatbot(
+            height=510,
+            layout="bubble",
+            placeholder=(
+                "Ask a question to explore this professional profile.\n"
+                "Haz una pregunta para conocer este perfil profesional."
+            ),
+            elem_id="career-chat",
+        ),
+        textbox=gr.Textbox(
+            placeholder="Write your question / Escribe tu pregunta",
+            container=False,
+            elem_id="career-input",
+        ),
+        examples=[
+            "What is your professional background?",
+            "¿Cuáles son tus principales habilidades?",
+            "What experience do you have with CRM platforms?",
+            "¿Cómo puedo contactarte?",
+        ],
+        example_labels=[
+            "Professional background",
+            "Habilidades principales",
+            "CRM experience",
+            "Contacto",
+        ],
+        title=None,
+        description=None,
+        autofocus=True,
+        flagging_mode="never",
+    )
+
+    gr.HTML(
+        f"""
+        <footer id="career-footer">
+            Answers are based on verified professional documents ·
+            Respuestas basadas en documentos profesionales verificados ·
+            <a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>
+        </footer>
+        """
+    )
 
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 7860))
-    demo.launch(server_name="0.0.0.0", server_port=port)
+    demo.launch(
+        server_name="0.0.0.0",
+        server_port=port,
+        theme=theme,
+        css=css,
+    )
